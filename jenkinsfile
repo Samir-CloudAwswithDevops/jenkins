@@ -1,0 +1,149 @@
+
+######### day01 #####################
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repo') {
+            steps {
+                url: 'https://github.com/Samir-CloudAwswithDevops/jenkins.git
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                dir('day-1-basic-code') {
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Destroy') {
+            steps {
+                dir('day-1-basic-code') {
+                    sh 'terraform destroy -auto-approve'
+                }
+            }
+        }
+    }
+}
+
+
+
+
+# ------- Day-3 ---------
+##################code for add parameters and choices directly in the code ###########
+pipeline {
+    agent any
+
+    // ---------- PARAMETERS ----------
+    parameters {
+        choice(
+            name: 'ACTION',
+            choices: ['plan', 'apply', 'destroy'],
+            description: 'Select Terraform action'
+        )
+    }
+
+    stages {
+
+        // ---------- CLONE REPO ----------
+        stage('Clone Repo') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Samir-CloudAwswithDevops/jenkins.git
+            }
+        }
+
+        // ---------- TERRAFORM INIT ----------
+        stage('Terraform Init') {
+            steps {
+                sh '''
+                    terraform init
+                '''
+            }
+        }
+
+        // ---------- TERRAFORM EXECUTION ----------
+        stage('Terraform Action') {
+            steps {
+                script {
+
+                    if (params.ACTION == 'plan') {
+                        sh 'terraform plan'
+                    }
+
+                    if (params.ACTION == 'apply') {
+                        sh 'terraform apply -auto-approve'
+                    }
+
+                    if (params.ACTION == 'destroy') {
+                        sh 'terraform destroy -auto-approve'
+                    }
+                }
+            }
+        }
+    }
+}
+
+####  we can add it though this project is parameterised
+###   this project is parameterised --> choice --> name = action -->
+##    choices = apply 
+##        destroy
+
+
+pipeline {
+    agent any
+    stages {
+
+        stage('Clone Repo') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Samir-CloudAwswithDevops/jenkins.git
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                dir('day-1-basic-code') {
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                dir('day-1-basic-code') {
+                    sh 'terraform plan'
+                }
+            }
+        }
+
+        stage('Terraform Apply/Destroy') {
+            steps {
+                dir('day-1-basic-code') {
+                    sh "terraform ${params.action} -auto-approve"
+                }
+            }
+        }
+
+    }
+}
+
+
+
+### ---- Day-3  ---###
+
+pipeline {
+    agent none   // We will use per-stage agents
+
+    stages {
+
+        /* -----------------------------
+           GIT CLONE (Runs on any node)
+        ------------------------------*/
+        stage('Git Clone') {
+            agent { label 'terraform' }   // OR 'master' if you prefer
+            steps {
+                git url: branch: 'main', 'https://github.com/Samir-CloudAwswithDevops/jenkins.git'
+            }
+         }
+      }
+  }
