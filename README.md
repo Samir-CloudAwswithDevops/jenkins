@@ -23,12 +23,14 @@ or you can install it one by one
 sudo yum update -y
 
 # Git
+<img width="3840" height="2160" alt="image" src="https://github.com/user-attachments/assets/e84bda86-1f9e-46be-84f8-b76b36b705d6" />
 sudo yum install git -y
 
 # Java (required for Jenkins)
 sudo yum install java-17-amazon-corretto.x86_64 -y
 
 # Jenkins
+<img width="3840" height="2160" alt="image" src="https://github.com/user-attachments/assets/454c3213-08df-4fd6-9fb1-00c70d726711" />
 sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 sudo yum install jenkins -y
@@ -36,6 +38,7 @@ sudo systemctl enable jenkins
 sudo systemctl start jenkins
 
 # Terraform
+<img width="217" height="234" alt="image" src="https://github.com/user-attachments/assets/8ca46222-1b51-45d5-a3f2-81cf002be0ad" />
 sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 sudo yum -y install terraform
