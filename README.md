@@ -1,5 +1,6 @@
  # ======== Day 01 – Jenkins Setup on AWS EC2 🚀 ========
-git commit -m  https://logos-world.net/wp-content/uploads/2023/12/Jenkins-Emblem.png
+
+<img width="3840" height="2160" alt="image" src="https://github.com/user-attachments/assets/ef6f7b41-04c9-4c88-bae2-7bae45e7cfa3" /> 
 # This guide walks through setting up Jenkins on an EC2 instance, installing required dependencies, and configuring a Jenkins pipeline to run Terraform code.
 # 🖥️ EC2 Instance Setup
 - Instance Name: Jenkins
